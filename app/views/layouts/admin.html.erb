@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lmc</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <header>
+    <%#= favicon_link_tag  '/assets/ror.ico' %>
+    <%= link_to image_tag('/assets/leroy_merlin.png', alt: 'Leroy Merlin', title: 'На главную'), url_for(controller: '/pages', action: :home) %>
+    <h1>Модель компетенций</h1>
+    <h2>Модуль Администратора</h2>
+  </header>
+
+  <nav id="top">
+    <%= link_to 'Администрирование',        '/admin/panel' %>
+    <%= link_to 'Сотрудники',               '/admin/users' %>
+    <%= link_to 'Должности',                '/admin/positions' %>
+    <%= link_to 'Уровни компетенции',       '/admin/levels' %>
+    <%= link_to 'Блоки компетенций',        '/admin/clusters' %>
+    <%= link_to 'Компетенции',              '/admin/competencies' %>
+    <%= link_to 'Поведенческие индикаторы', '/admin/behaviors' %>
+  </nav>
+
+<%= yield %>
+
+</body>
+</html>
+

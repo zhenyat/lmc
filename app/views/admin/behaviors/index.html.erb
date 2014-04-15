@@ -1,0 +1,33 @@
+<h1>Listing behaviors</h1>
+
+<table class="ztTable">
+  <thead>
+    <tr>
+      <th>Компетенция</th>
+      <th>Уровень</th>
+      <th>Name</th>
+      <th>Описание</th>
+      <th>Действия</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @behaviors.each do |behavior| %>
+      <tr>
+        <td><%= Position.find(Competency.find(behavior.competency_id).position_id).title %></td>
+        <td><%= Competency.find(behavior.competency_id).title %></td>
+        <td><%= Level.find(behavior.level_id).title %></td>
+        <td class="descr"><%= behavior.description %></td>
+        <td class="buttons">
+          <%= link_to image_tag('buttons/show.png',   alt: 'show',    title: 'show'),    [:admin, behavior] %>
+          <%= link_to image_tag('buttons/edit.png',   alt: 'edit',    title: 'edit'),    edit_admin_behavior_path(behavior) %>
+          <%= link_to image_tag('buttons/delete.png', alt: 'destroy', title: 'destroy'), [:admin, behavior], method: :delete, data: {confirm: 'Вы уверены?'} %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Добавить', new_admin_behavior_path %>

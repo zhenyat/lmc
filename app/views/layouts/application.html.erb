@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lmc</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <header>
+    <%#= favicon_link_tag  '/assets/ror.ico' %>
+    <%= link_to image_tag('/assets/leroy_merlin.png', alt: 'Leroy Merlin', title: 'На главную'), url_for(controller: :pages, action: :home) %>
+    <h1>Модель компетенций</h1>
+    <h2>Демонстрационный модуль</h2>
+  </header>
+
+  <nav id="top">
+    <%= link_to 'Главная',      '/' %>
+    <%= link_to 'Обзор модели', '/pages/review' %>
+    <%= link_to 'Оценка',       '/:assessments' %>
+    <%= link_to 'Отчетность',   '/reports' %>
+    <%= link_to 'Админка',      '/admin/panel' %>
+  </nav>
+
+<%= yield %>
+
+</body>
+</html>

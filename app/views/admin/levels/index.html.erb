@@ -1,0 +1,31 @@
+<h1>Список уровней компетенции</h1>
+
+<table class="ztTable">
+  <thead>
+    <tr>
+      <th>Ранг</th>
+      <th>Name</th>
+      <th>Название</th>
+      <th>Действия</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @levels.each do |level| %>
+      <tr>
+        <td><%= level.rank %></td>
+        <td><%= level.name %></td>
+        <td><%= level.title %></td>
+        <td class="buttons">
+          <%= link_to image_tag('buttons/show.png',   alt: 'show',    title: 'show'),    [:admin, level] %>
+          <%= link_to image_tag('buttons/edit.png',   alt: 'edit',    title: 'edit'),    edit_admin_level_path(level) %>
+          <%= link_to image_tag('buttons/delete.png', alt: 'destroy', title: 'destroy'), [:admin, level], method: :delete, data: {confirm: 'Вы уверены?'} %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Добавить', new_admin_level_path %>

@@ -1,0 +1,30 @@
+<h1>Список блоков (кластеров) клмпетенций</h1>
+
+<table class="ztTable">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Название</th>
+      <th>Действия</th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @clusters.each do |cluster| %>
+      <tr>
+        <td><%= cluster.name %></td>
+        <td><%= cluster.title %></td>
+        <td class="buttons">
+          <%= link_to image_tag('buttons/show.png',   alt: 'show',    title: 'show'),    [:admin, cluster] %>
+          <%= link_to image_tag('buttons/edit.png',   alt: 'edit',    title: 'edit'),    edit_admin_cluster_path(cluster) %>
+          <%= link_to image_tag('buttons/delete.png', alt: 'destroy', title: 'destroy'), [:admin, cluster], method: :delete, data: {confirm: 'Вы уверены?'} %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Добавить', new_admin_cluster_path %>

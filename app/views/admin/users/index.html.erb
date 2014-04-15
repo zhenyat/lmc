@@ -1,0 +1,31 @@
+<h1>Список аттестуемых сотрудников</h1>
+
+<table class="ztTable">
+  <thead>
+    <tr>
+      <th>Фамилия Имя</th>
+      <th>Должность</th>
+      <th>Уровень</th>
+      <th class="action">Действия</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= Position.find(user.position_id).title %></td>
+        <td><%= Level.find(user.level_id).title %></td>
+        <td class="buttons">
+          <%= link_to image_tag('buttons/show.png',   alt: 'show',    title: 'show'),    [:admin, user] %>
+          <%= link_to image_tag('buttons/edit.png',   alt: 'edit',    title: 'edit'),    edit_admin_user_path(user) %>
+          <%= link_to image_tag('buttons/delete.png', alt: 'destroy', title: 'destroy'), [:admin, user], method: :delete, data: {confirm: 'Вы уверены?'} %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Добавить', new_admin_user_path %>
