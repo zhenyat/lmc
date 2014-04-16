@@ -1,4 +1,8 @@
 class PagesController < ApplicationController
+  def demo
+puts "ZT: params="+params.inspect
+  end
+
   def home
   end
 
