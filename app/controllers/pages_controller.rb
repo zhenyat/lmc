@@ -1,7 +1,4 @@
 class PagesController < ApplicationController
-  def demo
-puts "ZT: params="+params.inspect
-  end
 
   def home
   end
@@ -21,8 +18,6 @@ puts "ZT: params="+params.inspect
           @matrix[cluster.name][competency.name][competency.position.id] = competency.position.name
         end
       end
-#       puts "ZT: matrix = "+@matrix[cluster.name].inspect
-#       puts "ZT: matrix = "+@matrix[cluster.name].count.to_s
     end
   end
 end

@@ -14,10 +14,10 @@
         <td rowspan='<%= rows %>'><%= cluster.title %></td>
           <% @matrix[cluster.name].each do |row| %>
             <% title =  Competency.find_by_name(row.first).title%>
-            <td><%= link_to(title, '/pages/demo', class: "popup", name_co: row.first, name_po: 'seller') %></td>
-            <td><%= row.last.include?('dept_manager')   ? title : '' %></td>
-            <td><%= row.last.include?('sector_head')    ? title : '' %></td>
-            <td><%= row.last.include?('store_director') ? title : '' %></td>
+            <td><%= row.last.include?('seller')         ? link_to(title, {controller: 'datashow', action: 'behavior',  competency_name: row.first, position_name: 'seller'},         class: "popup") : '' %></td>
+            <td><%= row.last.include?('dept_manager')   ? link_to(title, {controller: 'datashow', action: 'behavior',  competency_name: row.first, position_name: 'dept_manager'},   class: "popup") : '' %></td>
+            <td><%= row.last.include?('sector_head')    ? link_to(title, {controller: 'datashow', action: 'behavior',  competency_name: row.first, position_name: 'sector_head'},    class: "popup") : '' %></td>
+            <td><%= row.last.include?('store_director') ? link_to(title, {controller: 'datashow', action: 'behavior',  competency_name: row.first, position_name: 'store_director'}, class: "popup") : '' %></td>
           </tr>
       <% end %>   <%# Competency Loop%>
     <% end %>     <%# Cluster Loop%>

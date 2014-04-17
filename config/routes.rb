@@ -1,8 +1,7 @@
 Lmc::Application.routes.draw do
 
-#  get "panel/index"
+  get "datashow/behavior"
   get "pages/review"
-  get "pages/demo"
 
   namespace :admin do
     resources :behaviors
@@ -20,7 +19,7 @@ Lmc::Application.routes.draw do
   end
 
   post 'review',          to: 'pages', as: 'review'
-#  post 'demo_competency', to: 'pages', as: 'demo_competency'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
