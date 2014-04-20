@@ -1,0 +1,46 @@
+<h1>Оценка сотрудника</h1>
+
+<%= form_for :user, url: {controller: "assessments", action: "set_user"}, html: {id: 'set_user_form'} do |f| %>
+  <%= f.label 'Cотрудник ' %>
+  <% if session[:user_id].nil? %>
+    <%= f.collection_select :user_id, User.all, :id, :name, include_blank: false %>
+  <% else %>
+    <%= f.collection_select :user_id, User.all, :id, :name, selected: session[:user_id], include_blank: false %>
+  <% end %>
+  <%= f.submit 'Выбрать'%>
+<% end %>
+
+<p>Должность: <%= Position.find(session[:position_id]).title %> </p>
+<p>Уровень:   <%= Level.find(session[:level_id]).title %> </p>
+
+<%= form_for :assessment, url: {controller: "assessments", action: "handle"}, html: {id: 'assessment_form'}   do |f| %>
+
+  <%= f.hidden_field :user_id, value: session[:user_id] %>
+
+  <% Cluster.all.each do |cluster| %>
+  <% competencies = Competency.where(position_id: session[:position_id], cluster_id: cluster.id)%>
+    <% if competencies.count > 0 %>
+      <h2>Блок компетенций: <%= cluster.title %> </h2>
+      <% competencies.each do |competency| %>
+        <h3>Компетенция: <%= competency.title %></h3>
+        <% behaviors = Behavior.where(competency_id: competency.id, level_id: session[:level_id]) %>
+        <%# behaviors = Behavior.where(competency_id: competency.id).where('level_id IN (?)', session[:levels]) %>
+        <% if behaviors.count > 0 %>
+          <table class="ztTable">
+            <% behaviors.each do |behavior| %>
+              <tr>
+                <td class="descr"><%= f.label behavior.description %></td>
+                <!--td><%#= f.check_box "user_tick[#{behavior.id}]" %></td-->
+                <td class="cb"><%= f.check_box "master_tick[#{behavior.id}]" %></td>
+              </tr>
+            <% end %>   <%# behaviors Loop%>
+          </table>
+        <% end %>       <%# IF behaviors.count END%>
+      <% end %>         <%# competencies Loop%>
+    <% end %>           <%# IF competencies.count END%>
+  <% end %>             <%# Cluster Loop%>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>               <%# Form Loop%>

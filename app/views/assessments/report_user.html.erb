@@ -1,0 +1,30 @@
+<h1>Результат оценки сотрудника</h1>
+<table>
+  <tr><td>Сотрудник:</td><td><strong><%= @user.name %></strong></td></tr>
+  <tr><td>Должность:</td><td><strong><%= @position.title %></strong></td></tr>
+  <tr><td>Уровень:</td>  <td><strong><%= @level.title %></strong></td></tr>
+</table>
+
+
+<% Cluster.all.each do |cluster| %>
+  <% competencies = Competency.where(position_id: @position.id, cluster_id: cluster.id)%>
+    <% if competencies.count > 0 %>
+      <h2>Блок компетенций: <%= cluster.title %> </h2>
+      <% competencies.each do |competency| %>
+        <h3>Компетенция: <%= competency.title %></h3>
+        <% behaviors = Behavior.where(competency_id: competency.id, level_id: @level.id) %>
+        <% if behaviors.count > 0 %>
+          <table class="ztTable">
+            <% behaviors.each do |behavior| %>
+              <tr>
+                <td class="descr"><%= behavior.description %></td>
+                <td class="cb">        <%= image_tag("checked.png", :size => "21x23", :alt => "Checked") if @assessments.where(behavior_id: behavior.id)[0].master_tick == true %></td>
+
+              </tr>
+            <% end %>   <%# behaviors Loop%>
+          </table>
+        <% end %>       <%# IF behaviors.count END%>
+      <% end %>         <%# competencies Loop%>
+    <% end %>           <%# IF competencies.count END%>
+  <% end %>             <%# Cluster Loop%>
+

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @assessment.user_id %>
+</p>
+
+<p>
+  <strong>Behavior:</strong>
+  <%= @assessment.behavior_id %>
+</p>
+
+<p>
+  <strong>User mark:</strong>
+  <%= @assessment.user_tick %>
+</p>
+
+<p>
+  <strong>Master mark:</strong>
+  <%= @assessment.master_tick %>
+</p>
+
+<%= link_to 'Edit', edit_assessment_path(@assessment) %> |
+<%= link_to 'Back', assessments_path %>

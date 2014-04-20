@@ -1,4 +1,6 @@
 class Behavior < ActiveRecord::Base
+  has_many   :assessments
+  
   belongs_to :competency
   belongs_to :level
 

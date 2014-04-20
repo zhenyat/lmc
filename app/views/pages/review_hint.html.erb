@@ -1,0 +1,169 @@
+<style>
+
+h1, h3 {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+a {
+  color: #EB067B;
+}
+
+div#container {
+  width: 580px;
+  margin: 100px auto 0 auto;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #1a1a1a;
+}
+/* HOVER STYLES */
+div.pop-up {
+  display: none;
+  position: absolute;
+  width: 280px;
+  padding: 10px;
+  background: #eeeeee;
+  color: #000000;
+  border: 1px solid #1a1a1a;
+  font-size: 90%;
+}
+  /* HOVER STYLES
+  div.hint {
+    display: none;
+    position: absolute;
+    width: 280px;
+    padding: 10px;
+    background: lightyellow;
+    color: #000000;
+    border: 1px solid #1a1a1a;
+    font-size: 90%;
+
+    white-space: nowrap;
+    text-overflow:  ellipsis;
+    overflow: hidden;
+    hyphens: auto
+    word-wrap: break-word;
+    text-wrap: unrestricted;
+
+    word-break: break-all
+
+  }
+  /* http://www.webdesignerdepot.com/2012/11/how-to-create-a-simple-css3-tooltip/ */
+ /* .popup{
+      display: inline;
+      position: relative;
+  }
+  .popup:hover:after{
+      background: #333;
+      background: rgba(0,0,0,.8);
+      border-radius: 5px;
+      bottom: 26px;
+      color: #fff;
+      content: attr(title);
+      left: 20%;
+      padding: 5px 15px;
+      position: absolute;
+      z-index: 98;
+      width: 300px;
+  }
+  .popup:hover:before{
+      border: solid;
+      border-color: #333 transparent;
+      border-width: 6px 6px 0 6px;
+      bottom: 20px;
+      content: "";
+      left: 50%;
+      position: absolute;
+      z-index: 99;
+  }
+  */
+</style>
+<h1>Матрица компетенций </h1>
+<a href="#" title="This is some information for our tooltip." class="tooltip"><span title="More">CSS3 Tooltip</span></a><br><br>
+
+<div id="container">
+    <h1>jQuery Tutorial - Pop-up div on hover</h1>
+    <p>
+      To show hidden div, simply hover your mouse over
+      <a href="#" id="popup">this link</a>.
+    </p>
+</div>
+<!-- HIDDEN / POP-UP DIV -->
+  <div class="pop1up">
+    <h3>Pop-up div Successfully Displayed</h3>
+    <p>
+      This div only appears when the trigger link is hovered over.
+      Otherwise it is hidden from view. <br>ЖЕНЯ Телюков!!
+      Всем привет!.
+    </p>
+  </div>
+
+<table class="ztTable">
+  <thead>
+    <th>Кластер компетенций</th>
+    <th><%= @positions[0] %></th>
+    <th><%= @positions[1] %></th>
+    <th><%= @positions[2] %></th>
+    <th><%= @positions[3] %></th>
+  </thead>
+  <tbody>
+    <% @clusters.each do |cluster| %>
+      <% rows = @matrix[cluster.name].count %>
+      <tr>
+        <td rowspan='<%= rows %>'><%= cluster.title %></td>
+          <% @matrix[cluster.name].each do |row| %>
+            <% competency  =  Competency.where(name: row.first).first %>
+            <% title       =  competency.title %>
+            <% description =  competency.description %>
+            <td><%= row.last.include?('seller')         ? link_to(title, {controller: 'datashow', action: 'behavior',  competency_name: row.first, position_name: 'seller'},         class: "popup", title: description) : '' %></td>
+            <td><%= row.last.include?('dept_manager')   ? link_to(title, {controller: 'datashow', action: 'behavior',  competency_name: row.first, position_name: 'dept_manager'},   class: "popup") : '' %><div class="pop-up">Hello</div></td>
+            <td><%= row.last.include?('sector_head')    ? link_to(title, {controller: 'datashow', action: 'behavior',  competency_name: row.first, position_name: 'sector_head'},    class: "popup") : '' %><div class="pop-up">By</div></td>
+            <td><%= row.last.include?('store_director') ? link_to(title, {controller: 'datashow', action: 'behavior',  competency_name: row.first, position_name: 'store_director'}, class: "popup") : '' %><div class="pop-up">Greetings</div></td>
+          </tr>
+      <% end %>   <%# Competency Loop%>
+    <% end %>     <%# Cluster Loop%>
+  </tbody>
+</table>
+
+<script>
+$(function() {
+  var moveLeft = 20;
+  var moveDown = 10;
+
+  $('a.popup').hover(function(e) {
+    $(this).next('div.pop-up').show()
+      .css('top', e.pageY + moveDown)
+      .css('left', e.pageX + moveLeft)
+      .appendTo('body');
+  }, function() {
+    $(this).next('div.pop-up').hide();
+  });
+});
+/*
+  $('.popup').click(function(event) {
+      event.preventDefault();
+      window.open($(this).attr("href"), "popupWindow", "width=1000, height=800, scrollars=yes");
+  });
+
+  $(function() {
+    $('a.popup').hover(function() {
+      $(this).next('div.hint').show();
+    }, function() {
+      $(this).next('div.hint').hide();
+    });
+  });
+/*
+  $(function() {
+    $('a.popup').hover(function(e) {
+      $('div#pop-up').show()
+        .css('top', e.pageY)
+        .css('left', e.pageX)
+        .appendTo('body');
+    }, function() {
+      $('div#pop-up').hide();
+    });
+  });
+*/
+</script>
+

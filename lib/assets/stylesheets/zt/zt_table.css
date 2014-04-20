@@ -53,6 +53,10 @@
     width:          50px;
     line-height:    10px;
 }
+.ztTable td.cb {
+    width:          30px;
+    line-height:    10px;
+}
 .ztBtn {
     margin:         10px auto;
     font-family:    Verdana, Arial;
