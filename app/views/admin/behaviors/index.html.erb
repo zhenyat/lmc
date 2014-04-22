@@ -1,33 +1,52 @@
-<h1>Listing behaviors</h1>
+<h1>Список поведенческих индикаторов</h1>
 
-<table class="ztTable">
-  <thead>
-    <tr>
-      <th>Компетенция</th>
-      <th>Уровень</th>
-      <th>Name</th>
-      <th>Описание</th>
-      <th>Действия</th>
-    </tr>
-  </thead>
+<%= form_for :values, url: {controller: "behaviors", action: "set_values"}, html: {id: 'set_value_form'} do |f| %>
+  <%= f.label 'Должность: ' %>
 
-  <tbody>
-    <% @behaviors.each do |behavior| %>
-      <tr>
-        <td><%= Position.find(Competency.find(behavior.competency_id).position_id).title %></td>
-        <td><%= Competency.find(behavior.competency_id).title %></td>
-        <td><%= Level.find(behavior.level_id).title %></td>
-        <td class="descr"><%= behavior.description %></td>
-        <td class="buttons">
-          <%= link_to image_tag('buttons/show.png',   alt: 'show',    title: 'show'),    [:admin, behavior] %>
-          <%= link_to image_tag('buttons/edit.png',   alt: 'edit',    title: 'edit'),    edit_admin_behavior_path(behavior) %>
-          <%= link_to image_tag('buttons/delete.png', alt: 'destroy', title: 'destroy'), [:admin, behavior], method: :delete, data: {confirm: 'Вы уверены?'} %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <% if session[:position_id].nil? %>
+    <%= f.collection_select :position_id, Position.all, :id, :title, include_blank: false %>
+  <% else %>
+    <%= f.collection_select :position_id, Position.all, :id, :title, selected: session[:position_id], include_blank: false %>
+  <% end %>
+  <br>
+  <%= f.label 'Блок компетенций: ' %>
 
+  <% if session[:cluster_id].nil? %>
+    <%= f.collection_select :cluster_id, Cluster.all, :id, :title, include_blank: false %>
+  <% else %>
+    <%= f.collection_select :cluster_id, Cluster.all, :id, :title, selected: session[:cluster_id], include_blank: false %>
+  <% end %>
+  <br>
+  <%= f.label 'Уровень: ' %>
+
+  <% if session[:level_id].nil? %>
+    <%= f.collection_select :level_id, Level.all, :id, :title, include_blank: false %>
+  <% else %>
+    <%= f.collection_select :level_id, Level.all, :id, :title, selected: session[:level_id], include_blank: false %>
+  <% end %>
+  <br>
+  <%= f.submit 'Выбрать'%>
+<% end %>
+
+<% competencies = Competency.where(position_id: session[:position_id], cluster_id: session[:cluster_id]) %>
+<% if competencies.count > 0 %>
+  <% competencies.each do |competency| %>
+    <h2>Компетенция: <%= competency.title %> </h2>
+      <% behaviors = Behavior.where(competency_id: competency.id, level_id: session[:level_id]) %>
+      <table class="ztTable">
+        <% behaviors.each do |behavior| %>
+          <tr>
+            <td class="descr"><%= behavior.description%> </td>
+            <td class="buttons">
+              <%= link_to image_tag('buttons/show.png',   alt: 'show',    title: 'show'),    [:admin, behavior] %>
+              <%= link_to image_tag('buttons/edit.png',   alt: 'edit',    title: 'edit'),    edit_admin_behavior_path(behavior) %>
+              <%= link_to image_tag('buttons/delete.png', alt: 'destroy', title: 'destroy'), [:admin, behavior], method: :delete, data: {confirm: 'Вы уверены?'} %>
+            </td>
+          </tr>
+        <% end %>   <%# Behavior Loop %>
+      </table>
+  <% end %>         <%# Competency Loop %>
+<% end %>           <%# IF competencies.count END %>
 <br>
 
 <%= link_to 'Добавить', new_admin_behavior_path %>

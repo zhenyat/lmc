@@ -18,13 +18,13 @@
             <% behaviors.each do |behavior| %>
               <tr>
                 <td class="descr"><%= behavior.description %></td>
-                <td class="cb">        <%= image_tag("checked.png", :size => "21x23", :alt => "Checked") if @assessments.where(behavior_id: behavior.id)[0].master_tick == true %></td>
+                <td class="cb"><%= image_tag("checkmark.png", :size => "21x23", :alt => "Checked") if @assessments.where(behavior_id: behavior.id)[0].master_tick == true %></td>
 
               </tr>
-            <% end %>   <%# behaviors Loop%>
+            <% end %>   <%# behaviors Loop %>
           </table>
-        <% end %>       <%# IF behaviors.count END%>
-      <% end %>         <%# competencies Loop%>
-    <% end %>           <%# IF competencies.count END%>
-  <% end %>             <%# Cluster Loop%>
+        <% end %>       <%# IF behaviors.count END %>
+      <% end %>         <%# competencies Loop %>
+    <% end %>           <%# IF competencies.count END %>
+  <% end %>             <%# Cluster Loop %>
 

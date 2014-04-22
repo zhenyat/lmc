@@ -25,19 +25,23 @@ class AssessmentsController < ApplicationController
     redirect_to :controller => 'assessments', :action => 'report_user', :user_id => user_id
   end
 
+  def reports
+    @assessments = Assessment.where(user_id: session[:user_id]) unless session[:user_id].nil?
+  end
+
   def set_user
     session[:user_id]     = params[:user][:user_id]
     session[:position_id] = User.find(session[:user_id]).position_id
     session[:level_id]    = User.find(session[:user_id]).level_id
 
-    level_name      = Level.find(session[:level_id]).name
-    novice_id       = Level.where(name: 'novice').first.id
-    specialist_id   = Level.where(name: 'specialist').first.id
-    professional_id = Level.where(name: 'professional').first.id
-    expert_id       = Level.where(name: 'expert').first.id
+    # To accumulate levels
+    if 1 == 2                # NOT NEEDED!
+      level_name      = Level.find(session[:level_id]).name
+      novice_id       = Level.where(name: 'novice').first.id
+      specialist_id   = Level.where(name: 'specialist').first.id
+      professional_id = Level.where(name: 'professional').first.id
+      expert_id       = Level.where(name: 'expert').first.id
 
-    # NOT NEEDED: To accumulate levels
-    if 1 == 2
       session[:levels] = []
       case level_name
       when 'novice'

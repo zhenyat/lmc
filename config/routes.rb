@@ -16,14 +16,16 @@ Lmc::Application.routes.draw do
     resources :positions
     resources :users
 
+    post 'set_values',   to: 'behaviors',    as: 'set_values'
     post 'set_cluster',  to: 'competencies', as: 'set_cluster'
     post 'set_position', to: 'competencies', as: 'set_position'
   end
 
+  get  'reports',     to: 'assessments', as: 'reports'
   get  'report_user', to: 'assessments', as: 'report_user'
-  post 'set_user', to: 'assessments', as: 'set_user'
-  post 'handle',   to: 'assessments', as: 'handle'
-  post 'review',   to: 'pages',       as: 'review'
+  post 'set_user',    to: 'assessments', as: 'set_user'
+  post 'handle',      to: 'assessments', as: 'handle'
+  post 'review',      to: 'pages',       as: 'review'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

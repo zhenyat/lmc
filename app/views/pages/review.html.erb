@@ -17,14 +17,14 @@
           <% @matrix[cluster.name].each do |row| %>
             <% competency  =  Competency.where(name: row.first).first %>
             <% title       =  competency.title %>
-            <% description =  competency.description %>
+            <%# description =  competency.description %>
             <td><%= row.last.include?('seller')         ? link_to(title, {controller: 'datashow', action: 'behavior',  competency_name: row.first, position_name: 'seller'},         class: "popup") : '' %></td>
             <td><%= row.last.include?('dept_manager')   ? link_to(title, {controller: 'datashow', action: 'behavior',  competency_name: row.first, position_name: 'dept_manager'},   class: "popup") : '' %></td>
             <td><%= row.last.include?('sector_head')    ? link_to(title, {controller: 'datashow', action: 'behavior',  competency_name: row.first, position_name: 'sector_head'},    class: "popup") : '' %></td>
             <td><%= row.last.include?('store_director') ? link_to(title, {controller: 'datashow', action: 'behavior',  competency_name: row.first, position_name: 'store_director'}, class: "popup") : '' %></td>
           </tr>
-      <% end %>   <%# Competency Loop%>
-    <% end %>     <%# Cluster Loop%>
+      <% end %>   <%# Competency Loop %>
+    <% end %>     <%# Cluster Loop %>
   </tbody>
 </table>
 <style>

@@ -5,7 +5,11 @@ class Admin::BehaviorsController < ApplicationController
   # GET /admin/behaviors
   # GET /admin/behaviors.json
   def index
-    @behaviors = Behavior.all
+    @clusters     = Cluster.all
+    @positions    = Position.order('title')
+    @competencies = Competency.all
+    @levels       = Level.all
+    @behaviors    = Behavior.all
   end
 
   # GET /admin/behaviors/1
@@ -37,6 +41,14 @@ class Admin::BehaviorsController < ApplicationController
       end
     end
   end
+
+  def set_values
+    session[:position_id] = params[:values][:position_id]
+    session[:cluster_id]  = params[:values][:cluster_id]
+    session[:level_id]    = params[:values][:level_id]
+    redirect_to :back
+  end
+
 
   # PATCH/PUT /admin/behaviors/1
   # PATCH/PUT /admin/behaviors/1.json
