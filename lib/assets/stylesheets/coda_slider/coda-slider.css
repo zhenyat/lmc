@@ -34,7 +34,7 @@ css-tricks.com/musings-on-preprocessing/
     * Inner wrapper styles
     *
     *******************************************************/
-    background: yellowgreen;
+    background: #D3E6D3;
     /******************************************************
     *
     * Width of the container. Typically you will want to
@@ -78,7 +78,8 @@ css-tricks.com/musings-on-preprocessing/
       * Current tab styles
       *
       *******************************************************/
-      background: green;
+      background: #D3E6D3;
+      color: black;
     }
 
     .coda-slider-wrapper .coda-nav a {

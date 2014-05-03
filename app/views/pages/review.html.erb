@@ -1,27 +1,94 @@
-
 <h1>Матрица компетенций </h1>
 
 <table class="ztTable">
   <thead>
     <th>Кластер компетенций</th>
-    <th><%= @positions[0] %></th>
-    <th><%= @positions[1] %></th>
-    <th><%= @positions[2] %></th>
-    <th><%= @positions[3] %></th>
+    <%@positions.each do |position|%>
+      <th><%= position.title %></th>
+    <% end %>
   </thead>
   <tbody>
     <% @clusters.each do |cluster| %>
       <% rows = @matrix[cluster.name].count %>
       <tr>
-        <td rowspan='<%= rows %>'><%= cluster.title %></td>
+        <td class='rowspan' rowspan='<%= rows %>'><%= cluster.title %></td>
           <% @matrix[cluster.name].each do |row| %>
-            <% competency  =  Competency.where(name: row.first).first %>
-            <% title       =  competency.title %>
-            <%# description =  competency.description %>
-            <td><%= row.last.include?('seller')         ? link_to(title, {controller: 'datashow', action: 'behavior',  competency_name: row.first, position_name: 'seller'},         class: "popup") : '' %></td>
-            <td><%= row.last.include?('dept_manager')   ? link_to(title, {controller: 'datashow', action: 'behavior',  competency_name: row.first, position_name: 'dept_manager'},   class: "popup") : '' %></td>
-            <td><%= row.last.include?('sector_head')    ? link_to(title, {controller: 'datashow', action: 'behavior',  competency_name: row.first, position_name: 'sector_head'},    class: "popup") : '' %></td>
-            <td><%= row.last.include?('store_director') ? link_to(title, {controller: 'datashow', action: 'behavior',  competency_name: row.first, position_name: 'store_director'}, class: "popup") : '' %></td>
+
+            <td>
+              <% if row.last.include?('seller') %>
+                <% competency  =  Competency.where(name: row.first, position_id: @positions.where(name: 'seller').first.id).first %>
+                <% title       =  competency.title %>
+                <% description =  competency.description %>
+
+                <%= link_to({controller: 'datashow', action: 'behavior',  competency_id: competency.id, position_name: 'seller'}, {class: "tooltip popup"}) do %>
+                  <% if title.blank? %>
+                    <%= "" %>
+                  <% else %>
+                    <%= title %>
+                    <span class="critical"><%= description %></span>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <%= "" %>
+              <% end %>
+            </td>
+
+            <td>
+              <% if row.last.include?('dept_manager') %>
+                <% competency  =  Competency.where(name: row.first, position_id: @positions.where(name: 'dept_manager').first.id).first %>
+                <% title       =  competency.title %>
+                <% description =  competency.description %>
+
+                <%= link_to({controller: 'datashow', action: 'behavior',  competency_id: competency.id, position_name: 'dept_manager'}, {class: "tooltip popup"}) do %>
+                  <% if title.blank? %>
+                    <%= "" %>
+                  <% else %>
+                    <%= title %>
+                    <span class="critical"><%= description %></span>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <%= "" %>
+              <% end %>
+            </td>
+
+            <td>
+              <% if row.last.include?('sector_head') %>
+                <% competency  =  Competency.where(name: row.first, position_id: @positions.where(name: 'sector_head').first.id).first %>
+                <% title       =  competency.title %>
+                <% description =  competency.description %>
+
+                <%= link_to({controller: 'datashow', action: 'behavior',  competency_id: competency.id, position_name: 'sector_head'}, {class: "tooltip popup"}) do %>
+                  <% if title.blank? %>
+                    <%= "" %>
+                  <% else %>
+                    <%= title %>
+                    <span class="critical"><%= description %></span>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <%= "" %>
+              <% end %>
+            </td>
+
+            <td>
+              <% if row.last.include?('store_director') %>
+                <% competency  =  Competency.where(name: row.first, position_id: @positions.where(name: 'store_director').first.id).first %>
+                <% title       =  competency.title %>
+                <% description =  competency.description %>
+
+                <%= link_to({controller: 'datashow', action: 'behavior',  competency_id: competency.id, position_name: 'sector_head'}, {class: "tooltip popup"}) do %>
+                  <% if title.blank? %>
+                    <%= "" %>
+                  <% else %>
+                    <%= title %>
+                    <span class="critical"><%= description %></span>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <%= "" %>
+              <% end %>
+            </td>
           </tr>
       <% end %>   <%# Competency Loop %>
     <% end %>     <%# Cluster Loop %>
@@ -43,4 +110,3 @@
       window.open($(this).attr("href"), "popupWindow", "width=1000, height=800, scrollars=yes");
   });
 </script>
-

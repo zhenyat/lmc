@@ -3,9 +3,11 @@ class PagesController < ApplicationController
   def home
   end
 
+  # To show Competencies Matrix
   def review
     @clusters  = Cluster.all
-    @positions = Position.all.pluck(:title)
+#    @positions = Position.all.pluck(:title)
+    @positions = Position.all
     @matrix    = Hash.new
 
     @clusters.each do |cluster|
@@ -19,5 +21,13 @@ class PagesController < ApplicationController
         end
       end
     end
+
+
+    @clusters.each do |cluster|
+      @matrix[cluster.name].each do |row|
+        puts "ZT: row="+row.inspect
+      end
+    end
+
   end
 end

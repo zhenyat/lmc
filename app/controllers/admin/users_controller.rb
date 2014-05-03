@@ -16,11 +16,15 @@ class Admin::UsersController < ApplicationController
 
   # GET /admin/users/new
   def new
-    @user = User.new
+    @user      = User.new
+    @positions = Position.order('title')
+    @levels    = Level.order('title')
   end
 
   # GET /admin/users/1/edit
   def edit
+    @positions = Position.order('title')
+    @levels    = Level.order('title')
   end
 
   # POST /admin/users

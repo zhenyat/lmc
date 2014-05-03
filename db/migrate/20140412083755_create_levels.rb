@@ -1,9 +1,9 @@
 class CreateLevels < ActiveRecord::Migration
   def change
     create_table :levels do |t|
-      t.string :rank,  null: false
-      t.string :name,  null: false
-      t.string :title, null: false
+      t.integer :rank,  null: false
+      t.string  :name,  null: false
+      t.string  :title, null: false
 
       t.timestamps
     end

@@ -1,3 +1,7 @@
+<%##############################################################################
+#   The form updated:
+#     - DDLs, applicable for both actions:  New and Edit
+##############################################################################%>
 <%= form_for([:admin, @user]) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -11,23 +15,35 @@
     </div>
   <% end %>
 
-  <div class="field">
-      <%= f.label :position_id %><br>
-    <%= f.number_field :position_id %>
-    </div>
-  <div class="field">
-      <%= f.label :level_id %><br>
-    <%= f.number_field :level_id %>
-    </div>
-  <div class="field">
-      <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
-    </div>
-  <div class="field">
-      <%= f.label :last_name %><br>
+   <div class="field">
+    <%= f.label 'Фамилия: ' %>
     <%= f.text_field :last_name %>
-    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Имя: ' %>
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Должность: ' %>
+    <% if params[:id].nil? %>     <%# Case: New %>
+      <%= f.collection_select :position_id, @positions, :id, :title, include_blank: false %>
+    <% else %>                    <%# Case: Edit %>
+      <%= f.collection_select :position_id, @positions, :id, :title, selected: @user.position_id, include_blank: false %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Уровень компетенции: ' %>
+    <% if params[:id].nil? %>     <%# Case: New %>
+      <%= f.collection_select :level_id, @levels, :id, :title, include_blank: false %>
+    <% else %>                    <%# Case: Edit %>
+      <%= f.collection_select :level_id, @levels, :id, :title, selected: @user.level_id, include_blank: false %>
+    <% end %>
+  </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Сохранить" %>
   </div>
 <% end %>

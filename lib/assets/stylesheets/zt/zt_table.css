@@ -3,6 +3,7 @@
  *
  *  Last update: 14.02.2011
  *  12.04.2014   Updated for LVC Project
+ *  28.04.2014 Updated (correleation of styles from both sources)
  *********************************************/
 .ztTable {
     /* width:          800px; */
@@ -36,12 +37,16 @@
 .ztTable td {
     width:          200px;
     height:         30px;
-    line-height:    30px;
+    line-height:    20px;
     padding:        0 20px;
-    border-bottom:  1px solid #ffffff;
-    white-space:    nowrap;
-    text-align:     center;
+    border-bottom:  1px solid green; /*#ffffff;*/
+    text-align:     left;
     font-size:      10px
+}
+.ztTable td.rowspan {
+    font-weight:    bold;
+    text-align:     center;
+    font-size:      16px
 }
 .ztTable td.descr {
     width:          600px;
@@ -50,7 +55,9 @@
     white-space:    normal;
 }
 .ztTable td.buttons {
-    width:          50px;
+  
+    width:          70px;
+    text-align:     center;
     line-height:    10px;
 }
 .ztTable td.cb {

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140420052910) do
+ActiveRecord::Schema.define(version: 20140427132117) do
 
   create_table "assessments", force: true do |t|
     t.integer  "user_id",     null: false
@@ -22,6 +22,9 @@ ActiveRecord::Schema.define(version: 20140420052910) do
     t.datetime "updated_at"
   end
 
+  add_index "assessments", ["behavior_id"], name: "assessments_behavior_id_fk", using: :btree
+  add_index "assessments", ["user_id"], name: "assessments_user_id_fk", using: :btree
+
   create_table "behaviors", force: true do |t|
     t.integer  "competency_id", null: false
     t.integer  "level_id",      null: false
@@ -30,6 +33,9 @@ ActiveRecord::Schema.define(version: 20140420052910) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "behaviors", ["competency_id"], name: "behaviors_competency_id_fk", using: :btree
+  add_index "behaviors", ["level_id"], name: "behaviors_level_id_fk", using: :btree
 
   create_table "clusters", force: true do |t|
     t.string   "name",       null: false
@@ -47,6 +53,9 @@ ActiveRecord::Schema.define(version: 20140420052910) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "competencies", ["cluster_id"], name: "competencies_cluster_id_fk", using: :btree
+  add_index "competencies", ["position_id"], name: "competencies_position_id_fk", using: :btree
 
   create_table "levels", force: true do |t|
     t.string   "rank",       null: false
@@ -71,5 +80,20 @@ ActiveRecord::Schema.define(version: 20140420052910) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "users", ["level_id"], name: "users_level_id_fk", using: :btree
+  add_index "users", ["position_id"], name: "users_position_id_fk", using: :btree
+
+  add_foreign_key "assessments", "behaviors", name: "assessments_behavior_id_fk"
+  add_foreign_key "assessments", "users", name: "assessments_user_id_fk"
+
+  add_foreign_key "behaviors", "competencies", name: "behaviors_competency_id_fk"
+  add_foreign_key "behaviors", "levels", name: "behaviors_level_id_fk"
+
+  add_foreign_key "competencies", "clusters", name: "competencies_cluster_id_fk"
+  add_foreign_key "competencies", "positions", name: "competencies_position_id_fk"
+
+  add_foreign_key "users", "levels", name: "users_level_id_fk"
+  add_foreign_key "users", "positions", name: "users_position_id_fk"
 
 end

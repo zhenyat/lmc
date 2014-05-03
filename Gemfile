@@ -29,6 +29,9 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'rails-admin-scaffold' #ZT
 
+gem 'foreigner'
+gem 'immigrant'   # usage:   rails generate immigration AddKeys
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
