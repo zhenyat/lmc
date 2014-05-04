@@ -9,6 +9,7 @@ class CreateClusters < ActiveRecord::Migration
       t.timestamps
     end
     add_index :clusters, :rank, unique: true
+    add_index :clusters, :name, unique: true
 
     Cluster.create rank: 1, name: 'functional',  title: 'Функциональные', description: ''
     Cluster.create rank: 2, name: 'personality', title: 'Личностные',     description: ''

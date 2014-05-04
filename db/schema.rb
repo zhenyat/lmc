@@ -38,15 +38,21 @@ ActiveRecord::Schema.define(version: 20140427132117) do
   add_index "behaviors", ["level_id"], name: "behaviors_level_id_fk", using: :btree
 
   create_table "clusters", force: true do |t|
-    t.string   "name",       null: false
-    t.string   "title",      null: false
+    t.integer  "rank",        null: false
+    t.string   "name",        null: false
+    t.string   "title",       null: false
+    t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "clusters", ["name"], name: "index_clusters_on_name", unique: true, using: :btree
+  add_index "clusters", ["rank"], name: "index_clusters_on_rank", unique: true, using: :btree
+
   create_table "competencies", force: true do |t|
     t.integer  "position_id", null: false
     t.integer  "cluster_id",  null: false
+    t.integer  "rank"
     t.string   "name",        null: false
     t.string   "title",       null: false
     t.string   "description"
@@ -58,12 +64,15 @@ ActiveRecord::Schema.define(version: 20140427132117) do
   add_index "competencies", ["position_id"], name: "competencies_position_id_fk", using: :btree
 
   create_table "levels", force: true do |t|
-    t.string   "rank",       null: false
+    t.integer  "rank",       null: false
     t.string   "name",       null: false
     t.string   "title",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "levels", ["name"], name: "index_levels_on_name", unique: true, using: :btree
+  add_index "levels", ["rank"], name: "index_levels_on_rank", unique: true, using: :btree
 
   create_table "positions", force: true do |t|
     t.string   "name",       null: false

@@ -5,6 +5,7 @@ class Competency < ActiveRecord::Base
 
   validates :position_id, presence: true
   validates :cluster_id,  presence: true
+# validates :rank,        presence: true, uniqueness: true
   validates :name,        presence: true
   validates :title,       presence: true
 end
