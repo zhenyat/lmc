@@ -18,25 +18,28 @@
     <tr><td>Уровень:</td>  <td><strong><%= Level.find(session[:level_id]).title %></strong></td></tr>
   </table>
 
-  <% Cluster.all.each do |cluster| %>
-    <% competencies = Competency.where(position_id: session[:position_id], cluster_id: cluster.id)%>
-      <% if competencies.count > 0 %>
-        <h2>Блок компетенций: <%= cluster.title %> </h2>
-        <% competencies.each do |competency| %>
-          <h3>Компетенция: <%= competency.title %></h3>
-          <% behaviors = Behavior.where(competency_id: competency.id, level_id: session[:level_id]) %>
-          <% if behaviors.count > 0 %>
-            <table class="ztTable">
-              <% behaviors.each do |behavior| %>
-                <tr>
-                  <td class="descr"><%= behavior.description %></td>
-                  <td class="cb"><%= image_tag("checkmark.png", :size => "21x23", :alt => "Checked") if @assessments.where(behavior_id: behavior.id).first.master_tick == true %></td>
-
-                </tr>
-              <% end %>   <%# behaviors Loop %>
-            </table>
-          <% end %>       <%# IF behaviors.count END %>
-        <% end %>         <%# competencies Loop %>
-      <% end %>           <%# IF competencies.count END %>
-    <% end %>             <%# Cluster Loop %>
-<% end %>                 <%# UNLESS session[:user_id] END %>
+  <% unless @assessments.empty? %>
+    <% Cluster.all.each do |cluster| %>
+      <% competencies = Competency.where(position_id: session[:position_id], cluster_id: cluster.id)%>
+        <% if competencies.count > 0 %>
+          <h2>Блок компетенций: <%= cluster.title %> </h2>
+          <% competencies.each do |competency| %>
+            <h3>Компетенция: <%= competency.title %></h3>
+            <% behaviors = Behavior.where(competency_id: competency.id, level_id: session[:level_id]) %>
+            <% if behaviors.count > 0 %>
+              <table class="ztTable">
+                <% behaviors.each do |behavior| %>
+                  <tr>
+                    <td class="descr"><%= behavior.description %></td>
+                    <td class="cb"><%= image_tag("checkmark.png", :size => "21x23", :alt => "Checked") if !@assessments.where(behavior_id: behavior.id).empty? && @assessments.where(behavior_id: behavior.id).first.master_tick == true %></td>
+                  </tr>
+                <% end %>   <%# behaviors Loop %>
+              </table>
+            <% end %>       <%# IF behaviors.count END %>
+          <% end %>         <%# competencies Loop %>
+        <% end %>           <%# IF competencies.count END %>
+      <% end %>             <%# Cluster Loop %>
+    <% else %>              
+      <p>Нет результатов аттестации на данного сотрудника</p>      
+    <% end %>               <%# IF @assessments.empty? END %>
+<% end %>                   <%# UNLESS session[:user_id] END %>
