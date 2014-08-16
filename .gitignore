@@ -12,7 +12,7 @@
 /db/*.sqlite3-journal
 
 # Ignore mysql settings
-config/database.yml
+/config/database.yml
 
 # Ignore all logfiles and tempfile
 /log/*.log
@@ -28,3 +28,6 @@ config/database.yml
 
 # Ignore chruby
 /.ruby-version
+
+# Ignore bundle at host site5
+/vendor/bundle
