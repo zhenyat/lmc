@@ -4,10 +4,10 @@ Lmc::Application.routes.draw do
 
 #  get "assessments/index"
   get "datashow/behavior"
-#  get '/datashow/img/ajax-loader.gif'
   get "pages/review"
 
   namespace :admin do
+    resources :actioncards
     resources :behaviors
     resources :clusters
     resources :competencies
@@ -16,9 +16,10 @@ Lmc::Application.routes.draw do
     resources :positions
     resources :users
 
-    post 'set_values',   to: 'behaviors',    as: 'set_values'
-    post 'set_cluster',  to: 'competencies', as: 'set_cluster'
-    post 'set_position', to: 'competencies', as: 'set_position'
+    post 'set_values_for_actioncard', to: 'actioncards',  as: 'set_values_for_actioncard'
+    post 'set_values',                to: 'behaviors',    as: 'set_values'
+    post 'set_cluster',               to: 'competencies', as: 'set_cluster'
+    post 'set_position',              to: 'competencies', as: 'set_position'
   end
 
   get  'reports',     to: 'assessments', as: 'reports'

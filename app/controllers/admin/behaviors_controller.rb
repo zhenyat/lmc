@@ -42,6 +42,7 @@ class Admin::BehaviorsController < ApplicationController
     end
   end
 
+  # Sets values for Behavior
   def set_values
     session[:position_id] = params[:values][:position_id]
     session[:cluster_id]  = params[:values][:cluster_id]

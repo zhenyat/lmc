@@ -1,6 +1,6 @@
-<h1>Список поведенческих индикаторов</h1>
+<h1>Карты развивающих действий</h1>
 
-<%= form_for :values, url: {controller: "behaviors", action: "set_values"}, html: {id: 'set_value_form'} do |f| %>
+<%= form_for :values, url: {controller: "actioncards", action: "set_values_for_actioncard"}, html: {id: 'set_value_form'} do |f| %>
   <%= f.label 'Должность: ' %>
 
   <% if session[:position_id].nil? %>
@@ -32,21 +32,21 @@
 <% if competencies.count > 0 %>
   <% competencies.each do |competency| %>
     <h3>Компетенция: <%= competency.title %> </h3>
-      <% behaviors = Behavior.where(competency_id: competency.id, level_id: session[:level_id]) %>
+      <% actioncards = Actioncard.where(competency_id: competency.id, level_id: session[:level_id]) %>
       <table class="ztTable">
-        <% behaviors.each do |behavior| %>
+        <% actioncards.each do |actioncard| %>
           <tr>
-            <td class="descr"><%= behavior.description%> </td>
+            <td class="descr"><%= actioncard.description%> </td>
             <td class="buttons">
-              <%= link_to image_tag('buttons/show.png',   alt: 'show',    title: 'show'),    [:admin, behavior] %>&nbsp;
-              <%= link_to image_tag('buttons/edit.png',   alt: 'edit',    title: 'edit'),    edit_admin_behavior_path(behavior) %>&nbsp;
-              <%= link_to image_tag('buttons/delete.png', alt: 'destroy', title: 'destroy'), [:admin, behavior], method: :delete, data: {confirm: 'Вы уверены?'} %>
+              <%= link_to image_tag('buttons/show.png',   alt: 'show',    title: 'show'),    [:admin, actioncard] %>&nbsp;
+              <%= link_to image_tag('buttons/edit.png',   alt: 'edit',    title: 'edit'),    edit_admin_actioncard_path(actioncard) %>&nbsp;
+              <%= link_to image_tag('buttons/delete.png', alt: 'destroy', title: 'destroy'), [:admin, actioncard], method: :delete, data: {confirm: 'Вы уверены?'} %>
             </td>
           </tr>
-        <% end %>   <%# Behavior Loop %>
+        <% end %>   <%# Actioncard Loop %>
       </table>
   <% end %>         <%# Competency Loop %>
 <% end %>           <%# IF competencies.count END %>
 <br>
 
-<%= link_to 'Добавить', new_admin_behavior_path %>
+<%= link_to 'Добавить', new_admin_actioncard_path %>

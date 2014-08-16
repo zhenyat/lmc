@@ -1,13 +1,23 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Просмотр Поведенческого индикатора</h1>
+
 <p>
-  <strong>Компетенция:</strong>
+  <strong>Блок компетенций: </strong>
+  <%= @behavior.competency.cluster.title %>
+</p>
+<p>
+  <strong>Компетенция: </strong>
   <%= @behavior.competency.title %>
 </p>
 
 <p>
-  <strong>Уровень:</strong>
+  <strong>Должность: </strong>
+  <%= @behavior.competency.position.title %>
+</p>
+
+<p>
+  <strong>Уровень: </strong>
   <%= @behavior.level.title %>
 </p>
 

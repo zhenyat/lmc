@@ -1,7 +1,7 @@
-<h1>Поведенческие индикаторы</h1>
+<!--h1>Поведенческие индикаторы</h1-->
 <table>
   <tr>
-    <td>Кластер компетенций: </td>
+    <td>Блок компетенций: </td>
     <td><strong><%= @cluster.title %></strong></td>
   </tr>
   <tr>
@@ -18,9 +18,20 @@
   <% @levels.each do |level| %>
     <div>
       <h2 class="title"><%= level.title %> </h2>
-      <% @behaviors[level.name].each do |behavior| %>
-        <p><%= behavior.description %></p>
-      <% end %>
+      <div id="b_items">
+        <h3 class="title">Поведенческие индикаторы</h3>
+        <% @behaviors[level.name].each do |behavior| %>
+          <p><%= behavior.description %></p>
+        <% end %>
+      </div>
+      <div id="a_item">
+        <h3 class="title">Карта развивающих действий</h3>
+        <%  if @actioncard[level.name].nil? %>
+          <%= " Информация отсутствует" %>
+        <% else %>
+          <%= @actioncard[level.name].description.html_safe  %>
+        <% end %>
+      </div>
     </div>
   <% end %>
 </div>

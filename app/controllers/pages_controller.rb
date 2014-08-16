@@ -21,13 +21,5 @@ class PagesController < ApplicationController
         end
       end
     end
-
-
-    @clusters.each do |cluster|
-      @matrix[cluster.name].each do |row|
-        puts "ZT: row="+row.inspect
-      end
-    end
-
   end
 end

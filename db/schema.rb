@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140427132117) do
+ActiveRecord::Schema.define(version: 20140816071804) do
+
+  create_table "actioncards", force: true do |t|
+    t.integer  "competency_id", null: false
+    t.integer  "level_id",      null: false
+    t.text     "description",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "assessments", force: true do |t|
     t.integer  "user_id",     null: false
