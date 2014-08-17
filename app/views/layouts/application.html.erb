@@ -5,7 +5,7 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
-  
+
   <script>
     <%# To fix HTML5 issues for IE 8 %>
     for(var el="header footer nav section article aside time video".split(' ');el.length;){
@@ -26,7 +26,7 @@
       <li><%= link_to 'Обзор модели', '/pages/review' %></li>
       <li><%= link_to 'Оценка',       '/assessments' %></li>
       <li><%= link_to 'Отчетность',   '/reports' %></li>
-      <li><%= link_to 'Админка',      '/admin/panel' %></li>
+      <li><%= link_to 'Администрирование',      '/admin/panel' %></li>
     </ul>
   </nav>
 
