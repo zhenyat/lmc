@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140816071804) do
+ActiveRecord::Schema.define(version: 20140828155329) do
 
   create_table "actioncards", force: true do |t|
     t.integer  "competency_id", null: false
@@ -34,12 +34,12 @@ ActiveRecord::Schema.define(version: 20140816071804) do
   add_index "assessments", ["user_id"], name: "assessments_user_id_fk", using: :btree
 
   create_table "behaviors", force: true do |t|
-    t.integer  "competency_id", null: false
-    t.integer  "level_id",      null: false
-    t.string   "name",          null: false
-    t.text     "description",   null: false
+    t.integer  "competency_id",                null: false
+    t.integer  "level_id",                     null: false
+    t.text     "description",                  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "active",        default: true
   end
 
   add_index "behaviors", ["competency_id"], name: "behaviors_competency_id_fk", using: :btree

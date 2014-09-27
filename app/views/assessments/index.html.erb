@@ -32,7 +32,7 @@
               <% behaviors.each do |behavior| %>
                 <tr>
                   <td class="descr"><%= f.label behavior.description %></td>
-                  <!--td><%#= f.check_box "user_tick[#{behavior.id}]" %></td-->
+                  <td class="cb"><%= f.check_box "user_tick[#{behavior.id}]" %></td>
                   <td class="cb"><%= f.check_box "master_tick[#{behavior.id}]" %></td>
                 </tr>
               <% end %>   <%# behaviors Loop %>
